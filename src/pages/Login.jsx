@@ -1,13 +1,35 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import {useEffect, useRef} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import { useAuth } from '../utils/AuthContext'
 
 function Login() {
+  const navigate = useNavigate()
+  const {user, loginUser} = useAuth()
+
+  const loginform = useRef(null)
+
+  useEffect(() => {
+    if (user) {
+      navigate("/")
+    }
+  }, [navigate, user])
+
+  const handlesubmit = (e) => {
+    e.preventDefault()
+    const email = loginform.current.email.value
+    const password = loginform.current.password.value
+    
+    const userInfo  = {email, password}
+
+    loginUser(userInfo)
+  }
+
   return (
     <div className=' container min-h-full flex justify-center mx-auto'>
         
        <div className=' border border-black mt-56 p-10'>
        <h3 className='items-center w-full text-xl flex  justify-center font-extrabold'>Login</h3>
-      <form className=' flex flex-col space-y-2' >
+      <form className=' flex flex-col space-y-2' onSubmit={handlesubmit} ref={loginform}>
           <label >Email</label>
         <input
          type="text"

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -7,7 +7,7 @@ function About() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   useEffect(() => {
-    ;(async() => {
+    (async() => {
      try {
       setLoading(true)
       const response = await axios('https://fakestoreapi.com/products')
